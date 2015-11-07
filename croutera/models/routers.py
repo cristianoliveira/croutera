@@ -6,7 +6,10 @@
 """
 
 import urllib2
+
+from urllib2 import URLError
 from abc import ABCMeta, abstractmethod
+
 
 class Router(object):
     __metaclass__ = ABCMeta
@@ -20,6 +23,7 @@ class Router(object):
     def restart(self):
         """ Provide logic to restart the router (logged action) """
         pass
+
 
 class DLinkDir610(Router):
     """
@@ -47,6 +51,7 @@ class DLinkDir610(Router):
             print("Network is unreachable. Router is on? or is correct IP?")
             return
         print("Restarting the router")
+
 
 class Routers(object):
     """ Provide Router.class instances """
