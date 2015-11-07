@@ -9,35 +9,34 @@ def main():
 
     description = 'Simple terminal cli to manage modem / routers admin actions'
 
-    parser = argparse.ArgumentParser(description = description)
+    parser = argparse.ArgumentParser(description = description,
+                                     argument_default=argparse.SUPPRESS)
 
     parser.add_argument(
-        '-l', '--models-list', action='store_true',
-        help = 'Shows models available')
+        'model',
+        nargs = '?',help = 'Router model (see: --list-model)')
 
-    # parser.add_argument(
-    #     '-m', '--model',
-    #     help = 'Define router model. (--model-list to show models available)')
-    #
-    # parser.add_argument(
-    #     '--ip',
-    #     help = 'Router ip address (ex: 192.168.100.1)')
-    #
-    # parser.add_argument(
-    #     'user',
-    #     help = 'Admin user of router interface.')
-    #
-    # parser.add_argument(
-    #     'password',
-    #     help = 'Admin user password of router interface.')
-    #
-    # parser.add_argument(
-    #     '-l',
-    #     help = 'Show list of model available.')
+    parser.add_argument(
+        'username',
+        nargs = '?', help = 'User name to access admin page')
+    parser.add_argument(
+        'password',
+        nargs = '?',help = 'Password to access admin page')
+
+    parser.add_argument(
+        '-restart', dest = 'restart',
+        action = 'store_true', default=False,
+        help = 'Reset router by model.'
+    )
+
+    parser.add_argument(
+        '-list-models', dest = 'list_models',
+        action = 'store_true',  default=False,
+        help = 'Shows models available'
+    )
 
     args = parser.parse_args()
-    Cli().execute(args)
-
+    Cli.command(args).execute()
 
 if __name__ == '__main__':
     main()

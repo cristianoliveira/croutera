@@ -5,6 +5,7 @@
   Models routers implementations
 """
 
+import urllib2
 from abc import ABCMeta, abstractmethod
 
 class Router(object):
@@ -33,27 +34,32 @@ class DLinkDir610(Router):
 
     LOGIN_DATA_FORMAT = 'username={0}&password={1}&submit.htm%3Flogin.htm=Send'
 
-    def login(self, user, password):
-        data = str.format(LOGIN_DATA_FORMAT, username, password)
-        urllib2.urlopen(HOST + LOGIN_URI, data)
+    def login(self, username, password):
+        data = str.format(self.LOGIN_DATA_FORMAT, username, password)
+        urllib2.urlopen(self.HOST + self.LOGIN_URI, data)
         return "User logged!"
 
     def restart(self):
         data = 'reboot=Reboot&submit.htm%3Freboot.htm=Send'
-        urllib2.urlopen(HOST + REBOOT_URI, data)
-        return 'Restarting router'
+        try:
+            urllib2.urlopen(self.HOST + self.REBOOT_URI, data)
+        except URLError:
+            print("Network is unreachable. Router is on? or is correct IP?")
+            return
+        print("Restarting the router")
 
-class RouterFactory:
+class Routers(object):
     """ Provide Router.class instances """
 
-    ROUTERS = {
+    MODELS = {
         'dlink-dir610' : DLinkDir610
     }
 
     @staticmethod
     def get(model):
-        return RouterFactory.ROUTERS.get(model)()
+        model = Routers.MODELS.get(model)
+        return model()
 
     @staticmethod
     def list():
-        return RouterFactory.ROUTERS.keys()
+        return Routers.MODELS.keys()

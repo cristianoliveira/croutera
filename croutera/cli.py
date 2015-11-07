@@ -5,17 +5,17 @@
   Cli terminal module
 """
 
-from models.routers import RouterFactory
+from models.routers import Routers
+from commands import ModelListCommand, RestartCommand
 
 class Cli(object):
 
-    def execute(self, args):
-        """ Handle execution of args commands """
+    @staticmethod
+    def command(args):
+        """ Retrive command by args """
+        if args.list_models:
+            return ModelListCommand()
 
-        if args.models_list:
-             print("List of models: \n")
-             for model in RouterFactory.list():
-                 print(model+"\n")
-                 return
+        if args.restart:
+            return RestartCommand(args.model, args.username, args.password)
 
-        print("execute ", args)
