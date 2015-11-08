@@ -6,10 +6,11 @@
 """
 
 import urllib2
+import base64
 
 from urllib2 import URLError
 from abc import ABCMeta, abstractmethod
-
+from croutera.http import Header
 
 class Router(object):
     __metaclass__ = ABCMeta
@@ -53,11 +54,54 @@ class DLinkDir610(Router):
         print("Restarting the router")
 
 
+class TplinkWR340(Router):
+    """ Implementation for TpLink WR340G and WR340GD
+    see: http://www.tp-link.com.br/products/details/?model=TL-WR340G
+    """
+
+    HOST = 'http://192.168.1.1'
+
+    LOGIN_URI = '/'
+    REBOOT_URI = '/userRpm/SysRebootRpm.htm?Reboot=Reboot'
+
+    AUTH_FORMAT = "Basic %s"
+
+    def login(self, username, password):
+        self.username = username
+        self.password = password
+
+        request = self._prepare_request(self.HOST + self.LOGIN_URI)
+
+        try:
+            urllib2.urlopen(request)
+        except URLError:
+            print("Network is unreachable. Is Router on? or is IP correct?")
+            return
+
+        print("User logged!")
+
+    def restart(self):
+        urllib2.urlopen(self._prepare_request(self.HOST + self.REBOOT_URI))
+        print("Restarting the router")
+
+    def _prepare_request(self, url):
+        request = urllib2.Request(url)
+        auth_header = Header.prepare_base64_auth(self.username,
+                                                 self.password)
+
+        request.add_header('Authorization', "Basic %s" % auth_header)
+        request.add_header('Accept-Encoding', 'gzip,deflate')
+        request.add_header('Referer', url)
+
+        return request
+
+
 class Routers(object):
     """ Provide Router.class instances """
 
     MODELS = {
-        'dlink-dir610' : DLinkDir610
+        'dlink-dir610' : DLinkDir610,
+        'tplink-wr340g' : TplinkWR340
     }
 
     @staticmethod
