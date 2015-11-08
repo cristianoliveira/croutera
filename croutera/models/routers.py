@@ -86,10 +86,10 @@ class TplinkWR340(Router):
 
     def _prepare_request(self, url):
         request = urllib2.Request(url)
-        auth_header = Header.prepare_base64_auth(self.username,
+        auth_header = Header.basic_base64_auth(self.username,
                                                  self.password)
 
-        request.add_header('Authorization', "Basic %s" % auth_header)
+        request.add_header('Authorization', auth_header)
         request.add_header('Accept-Encoding', 'gzip,deflate')
         request.add_header('Referer', url)
 
