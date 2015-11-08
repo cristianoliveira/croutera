@@ -35,4 +35,7 @@ python croutera.py [model] [username] [password] -restart
 ### Routers available:
  - Dlink: 
   - DR610: http://www.dlink.com.br/produto/dir-610-a1
+ - TpLink:
+  - WR340G: http://www.tp-link.com.br/products/details/?model=TL-WR340G
+ 
 
