@@ -4,7 +4,7 @@ Simple Cli Router Admin (*C**R*outer*A*).
 The missing CLI for common Routers actions like login, restart , list clientes, log, etc.
 
 ## Motivation
-Almost all of tools I am used to use have this one CLI to handle this kind of things but my WiFi router haven't. Croutera comes to supply this missing CLI for this kind of WiFi routers/modems.
+Almost all of tools I am used to use have this CLI to handle this kind of things but my WiFi router haven't. Croutera comes to supply this missing CLI for this kind of WiFi routers/modems.
 
 ## Using
 Clone this repo and inside this folder do:
