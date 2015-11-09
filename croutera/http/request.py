@@ -22,7 +22,7 @@ class Post(object):
     def execute(self):
         request = urllib2.Request(self.url, self.data)
 
-        for k, v in self.self.headers.iteritems():
+        for k, v in self.headers.iteritems():
             request.add_header(k, v)
 
         return urllib2.urlopen(request)
