@@ -4,18 +4,15 @@
 import sys
 import base64
 
-class Header(object):
+def basic_base64_auth(username, password):
+    auth_string = '%s:%s' % (username, password)
 
-    @staticmethod
-    def basic_base64_auth(username, password):
-        auth_string = '%s:%s' % (username, password)
+    if sys.version_info[0] == 3:
+        auth_string = bytes(auth_string, 'ascii')
 
-        if sys.version_info[0] == 3:
-            auth_string = bytes(auth_string, 'ascii')
+    encoded = base64.b64encode(auth_string)
 
-        encoded = base64.b64encode(auth_string)
+    if sys.version_info[0] == 3:
+        encoded = encoded.decode('ascii')
 
-        if sys.version_info[0] == 3:
-            encoded = encoded.decode('ascii')
-        return "Basic %s" % encoded
-
+    return "Basic %s" % encoded

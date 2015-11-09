@@ -17,7 +17,7 @@ class ModelListCommand(object):
         return True
 
 class RestartCommand(object):
-    """ Restart modem / router 
+    """ Restart modem / router
 
     params:
         +model+ Router model name
@@ -32,6 +32,9 @@ class RestartCommand(object):
 
     def execute(self):
         router = Routers.get(self.model)
-        router.login(self.username, self.password)
-        return router.restart()
 
+        print('User login...')
+        router.login(self.username, self.password)
+
+        print('Router restarting...')
+        return router.restart()
