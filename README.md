@@ -33,7 +33,7 @@ croutera -restart [model] [username] [password]
 ```
 
 ## How to help?
- - Adding new routers. See [Routers](https://github.com/CristianOliveiraDaRosa/croutera/blob/master/croutera/models/routers.py) to get the router interface you should implement.
+ - Adding new routers. See [Routers](https://github.com/cristianoliveira/croutera/blob/master/croutera/models/base.py) to get the router interface you should implement.
  - Creating issues/requests/bug fixes
  - Adding Unit Tests
  - Using! And sending feedback.
