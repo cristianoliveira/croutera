@@ -1,29 +1,35 @@
 # Croutera
-Simple Cli Router Admin (*C**R*outer*A*).
+Simple Cli Router Admin (*CR*outer*A*).
 
 The missing CLI for common Routers actions like login, restart , list clientes, log, etc.
 
 ## Motivation
-Almost all of tools I am used to use have this CLI to handle this kind of things but my WiFi router haven't. Croutera comes to supply this missing CLI for this kind of WiFi routers/modems.
+Almost all of tools I am used to use have a CLI to handle their functionality
+but my WiFi router haven't. Croutera comes to supply this missing CLI for this
+kind of WiFi routers/modems.
 
-## Using
+## Installing
 Clone this repo and inside this folder do:
 ```bash
-   python croutera.py -h
+make install
+```
+
+## Using
+```bash
+   croutera -h
 ```
 
 ## Commands
 The current commands
 
-### Show models available
+#### Show models available
 ```bash
-python croutera.py -list-models
+croutera -list-models
 ```
 
-### Restart
-Restart modem
+#### Restart
 ```bash
-python croutera.py -restart [model] [username] [password]
+croutera -restart [model] [username] [password]
 ```
 
 ## How to help?
@@ -42,10 +48,9 @@ python croutera.py -restart [model] [username] [password]
 **Pull Request should have unit tests**
 
 ### Routers available:
- - Dlink: 
+ - Dlink:
   - DR610: http://www.dlink.com.br/produto/dir-610-a1
  - TpLink:
   - WR340G: http://www.tp-link.com.br/products/details/?model=TL-WR340G
- 
-**MIT License** 
 
+**MIT License**
