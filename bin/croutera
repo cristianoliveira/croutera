@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from croutera.cli import Cli, ParserBuilder
+from croutera import runner
 
-print("Croutera...")
-args = ParserBuilder.build().parse_args()
-Cli.command(args).execute()
+runner.run()

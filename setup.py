@@ -9,6 +9,8 @@ try:
 except ImportError:
     from distutils.core import setup
 
+from croutera import version
+
 def publish():
     """Publish to PyPi"""
     os.system("python setup.py sdist upload")
@@ -18,7 +20,7 @@ if sys.argv[-1] == "publish":
     sys.exit()
 
 setup(name='croutera',
-      version='0.0.1',
+      version= version(),
       description='Simple Cli Router Admin',
       long_description=open('README.md').read(),
       url='https://github.com/cristianoliveira/croutera',
