@@ -7,7 +7,7 @@
 
 import argparse
 
-from croutera.commands import ModelListCommand, RestartCommand
+from croutera.commands import *
 
 class ParserBuilder(object):
     """
@@ -47,6 +47,12 @@ class ParserBuilder(object):
             help='Shows models available'
         )
 
+        parser.add_argument(
+            '-v', '--version', dest='version',
+            action='store_true', default=False,
+            help='Shows current version.'
+        )
+
         return parser
 
 
@@ -55,9 +61,12 @@ class Cli(object):
     @staticmethod
     def command(args):
         """ Retrive command by args """
+
+        if args.version:
+            return VersionCommand()
+
         if args.list_models:
             return ModelListCommand()
 
         if args.restart:
             return RestartCommand(args.model, args.username, args.password)
-

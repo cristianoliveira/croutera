@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from croutera import version
 from models.routers import Routers
 
 class ModelListCommand(object):
@@ -38,3 +39,9 @@ class RestartCommand(object):
 
         print('Router restarting...')
         return router.restart()
+
+class VersionCommand(object):
+    """ Show current version installed """
+
+    def execute(self):
+        print('Croutera Version: ' + version())

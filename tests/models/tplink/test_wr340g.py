@@ -6,7 +6,6 @@
 
 import unittest
 
-from mock import patch
 from croutera.models.tplink import TplinkWR340
 
 class TplinkWR340Test(unittest.TestCase):

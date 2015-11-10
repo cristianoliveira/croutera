@@ -8,7 +8,7 @@ import unittest
 import argparse
 
 from croutera.cli import Cli, ParserBuilder
-from croutera.commands import ModelListCommand, RestartCommand
+from croutera.commands import *
 
 class CliTest(unittest.TestCase):
 
@@ -24,6 +24,13 @@ class CliTest(unittest.TestCase):
         args = self.parser.parse_args(self.cmd('-restart mdl usr pas'))
         command = Cli.command(args)
         self.assertIsInstance(command, RestartCommand)
+
+    def test_it_returns_version_command(self):
+        args = self.parser.parse_args(self.cmd('-v'))
+        command = Cli.command(self.parser.parse_args(self.cmd('-v')))
+        command2 = Cli.command(self.parser.parse_args(self.cmd('-v')))
+        self.assertIsInstance(command, VersionCommand)
+        self.assertIsInstance(command2, VersionCommand)
 
     def cmd(self, terminal_args):
         return terminal_args.split()
