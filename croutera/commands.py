@@ -45,3 +45,4 @@ class VersionCommand(object):
 
     def execute(self):
         print('Croutera Version: ' + version())
+        return True
