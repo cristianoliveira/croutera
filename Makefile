@@ -1,5 +1,5 @@
 setup:
-	python setup.py
+	pip install -r requirements.txt
 
 install:
 	python setup.py install

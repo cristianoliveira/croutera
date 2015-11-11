@@ -11,3 +11,5 @@ def run():
         cmd.execute()
     else:
         ParserBuilder.build().parse_args(['-h'])
+
+    return True
