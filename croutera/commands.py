@@ -4,11 +4,18 @@
 from croutera import version
 from models.routers import Routers
 
-class ModelListCommand(object):
-    """ List all router models available """
+class Command(object):
 
     def valid(self):
+        """ Implement logic for command validation """
         return True
+
+    def execute(self):
+        """ Command process """
+        raise NotImplemented('Command not implemented')
+
+class ModelListCommand(Command):
+    """ List all router models available """
 
     def execute(self):
         print("Models list: \n")
@@ -20,7 +27,7 @@ class ModelListCommand(object):
 
         return True
 
-class RestartCommand(object):
+class RestartCommand(Command):
     """ Restart modem / router
 
     params:
@@ -49,11 +56,8 @@ class RestartCommand(object):
         print('Router restarting...')
         return router.restart()
 
-class VersionCommand(object):
+class VersionCommand(Command):
     """ Show current version installed """
-
-    def valid(self):
-        return True
 
     def execute(self):
         print('Croutera Version: ' + version())
