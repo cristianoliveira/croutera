@@ -7,6 +7,9 @@ from models.routers import Routers
 class ModelListCommand(object):
     """ List all router models available """
 
+    def valid(self):
+        return True
+
     def execute(self):
         print("Models list: \n")
         for model in Routers.list():
@@ -31,8 +34,14 @@ class RestartCommand(object):
         self.username = username
         self.password = password
 
+    def valid(self):
+        if self.model.find('-') < 0:
+            print('Invalid model format')
+            return False
+        return True
+
     def execute(self):
-        router = Routers.get(self.model)()
+        router = Routers.get(*self.model.split('-'))()
 
         print('User login...')
         router.login(self.username, self.password)
@@ -42,6 +51,9 @@ class RestartCommand(object):
 
 class VersionCommand(object):
     """ Show current version installed """
+
+    def valid(self):
+        return True
 
     def execute(self):
         print('Croutera Version: ' + version())

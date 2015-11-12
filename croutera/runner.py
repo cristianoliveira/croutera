@@ -7,7 +7,7 @@ def run():
     print("Croutera...")
     args = ParserBuilder.build().parse_args()
     cmd = Cli.command(args)
-    if cmd:
+    if cmd and cmd.valid():
         cmd.execute()
     else:
         ParserBuilder.build().parse_args(['-h'])

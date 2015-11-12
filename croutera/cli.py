@@ -26,7 +26,9 @@ class ParserBuilder(object):
 
         parser.add_argument(
             'model',
-            nargs='?', help='Router model (see: --list-model)')
+            nargs='?',
+            help='Router model. format: manufacturer-model (see --list-model)'
+        )
 
         parser.add_argument(
             'username',
