@@ -1,2 +1,2 @@
 mock
-roscraco
+requests==2.8.1

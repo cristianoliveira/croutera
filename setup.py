@@ -29,10 +29,12 @@ setup(name='croutera',
       license='MIT',
       packages=[
       'croutera',
-      'croutera/http',
       'croutera/models',
       'croutera/models/tplink',
       'croutera/models/dlink'
+      ],
+      install_requires=[
+        "requests",
       ],
       scripts=['bin/croutera'],
       zip_safe=False)

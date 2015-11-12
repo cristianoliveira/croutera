@@ -5,7 +5,7 @@ import urllib2
 import base64
 
 from croutera.models.base import Router
-from croutera.http import header, request
+import requests
 
 
 class TplinkWR340(Router):
@@ -18,28 +18,17 @@ class TplinkWR340(Router):
     LOGIN_URI = '/'
     REBOOT_URI = '/userRpm/SysRebootRpm.htm?Reboot=Reboot'
 
-    AUTH_FORMAT = "Basic %s"
-
     def login(self, username, password):
         self.username = username
         self.password = password
 
         url = self.HOST + self.LOGIN_URI
-        response = request.Post(url, headers = self._headers(url)).execute()
+        response = requests.get(url, auth = (username, password))
 
-        return response.code == request.RESPONSE_OK
+        return response.ok
 
     def restart(self):
         url = self.HOST + self.REBOOT_URI
-        response = request.Post(url, headers = self._headers(url)).execute()
+        response = requests.get(url, auth = (self.username, self.password))
 
-        return response.code == request.RESPONSE_OK
-
-    def _headers(self, url):
-        auth_header = header.basic_base64_auth(self.username,
-                                               self.password)
-        return {
-            'Accept-Encoding' : 'gzip,deflate',
-            'Referer' : url,
-            'Authorization' : auth_header
-        }
+        return response.ok

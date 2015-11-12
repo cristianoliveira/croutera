@@ -5,7 +5,7 @@ import urllib2
 import base64
 
 from croutera.models.base import Router
-from croutera.http import request
+import requests
 
 
 class DLinkDir610(Router):
@@ -23,13 +23,13 @@ class DLinkDir610(Router):
     def login(self, username, password):
         data = str.format(self.LOGIN_DATA_FORMAT, username, password)
         url = self.HOST + self.LOGIN_URI
-        response = request.Post(url, data = data).execute()
+        response = requests.post(url, data = data)
 
-        return response.code == request.RESPONSE_OK
+        return response.ok
 
     def restart(self):
         data = 'reboot=Reboot&submit.htm%3Freboot.htm=Send'
         url = self.HOST + self.REBOOT_URI
-        response = request.Post(url, data = data).execute()
+        response = requests.post(url, data = data)
 
-        return response.code == request.RESPONSE_OK
+        return response.ok

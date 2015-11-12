@@ -21,8 +21,7 @@ class Routers(object):
         },
         'tplink' : {
             'wr340g' : TplinkWR340,
-            'wr720n' : TplinkWR720N,
-            'wr740n' : TplinkWR740N
+            'wr720n' : TplinkWR720N
         }
     }
 

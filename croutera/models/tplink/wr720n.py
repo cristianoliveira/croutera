@@ -3,10 +3,9 @@
 
 import urllib2
 import base64
+import requests
 
 from croutera.models.base import Router
-from croutera.http import header, request
-import roscraco
 
 
 class TplinkWR720N(Router):
@@ -14,22 +13,22 @@ class TplinkWR720N(Router):
     see: http://www.tp-link.com.br/products/details/?model=TL-WR720N
     """
 
-    HOST = '192.168.1.1'
-    AUTH_FORMAT = "Basic %s"
+    HOST = 'http://192.168.0.1'
 
-    def __init__(self):
-        self.controller = None
+    LOGIN_URI = '/'
+    REBOOT_URI = '/userRpm/SysRebootRpm.htm?Reboot=Reboot'
 
     def login(self, username, password):
-        self.controller = roscraco.create_controller(
-            roscraco.ROUTER_TP_LINK, 'WR720N',
-            HOST, 80, username, password
-        )
+        self.username = username
+        self.password = password
 
+        url = self.HOST + self.LOGIN_URI
+        response = requests.get(url, auth = (username, password))
+
+        return response.ok
 
     def restart(self):
-        if not self.controller:
-            print('Not loged in.')
-            return False
-        self.controller.restart()
-        return True
+        url = self.HOST + self.REBOOT_URI
+        response = requests.get(url, auth = (self.username, self.password))
+
+        return response.ok
