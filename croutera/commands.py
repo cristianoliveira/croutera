@@ -48,7 +48,8 @@ class RestartCommand(Command):
         return True
 
     def execute(self):
-        router = Routers.get(*self.model.split('-'))()
+        manufacuter, model = self.model.split('-')
+        router = Routers.get(manufacuter, model)()
 
         print('User login...')
         router.login(self.username, self.password)
