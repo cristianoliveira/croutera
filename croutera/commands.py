@@ -32,7 +32,7 @@ class RestartCommand(object):
         self.password = password
 
     def execute(self):
-        router = Routers.get(self.model)
+        router = Routers.get(self.model)()
 
         print('User login...')
         router.login(self.username, self.password)
