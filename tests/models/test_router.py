@@ -40,3 +40,11 @@ class RoutersTest(unittest.TestCase):
 
     def test_it_raise_model_not_found_error(self):
         self.assertRaises(ModelNotFoundError, Routers.get, 'manufacturer', 'model_invalid')
+
+    def test_it_returns_models_available(self):
+        self.assertEqual(Routers.list(), [
+                                            'manufacturer2-model3',
+                                            'manufacturer2-model4',
+                                            'manufacturer-model2',
+                                            'manufacturer-model1'
+                                        ])

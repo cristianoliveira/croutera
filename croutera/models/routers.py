@@ -21,7 +21,8 @@ class Routers(object):
         },
         'tplink' : {
             'wr340g' : TplinkWR340,
-            'wr720n' : TplinkWR720N
+            'wr720n' : TplinkWR720N,
+            'wr740n' : TplinkWR740N
         }
     }
 
@@ -45,4 +46,10 @@ class Routers(object):
 
     @staticmethod
     def list():
-        return Routers.MODELS.keys()
+        available = []
+        manufacturers = Routers.MANUFACTURER_MODELS.keys()
+        for man in manufacturers:
+            models = Routers.MANUFACTURER_MODELS.get(man)
+            for mdl in models:
+                available.append("%s-%s" % (man, mdl))
+        return available
