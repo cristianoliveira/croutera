@@ -16,7 +16,7 @@ make install
 
 ## Using
 ```bash
-   croutera -h
+croutera -h
 ```
 
 ## Commands
@@ -37,6 +37,9 @@ croutera -restart [model] [username] [password]
  - Creating issues/requests/bug fixes
  - Adding Unit Tests
  - Using! And sending feedback.
+
+## How to test my Implementation?
+ See the online simulators available. [Simulators](https://github.com/cristianoliveira/croutera/issues/11)
 
 ## Contributing
  - Fork it!
