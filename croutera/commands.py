@@ -36,10 +36,11 @@ class RestartCommand(Command):
         +password+ Admin password
     """
 
-    def __init__(self, model, username, password):
+    def __init__(self, model, username, password, ip = None):
         self.model = model
         self.username = username
         self.password = password
+        self.ip = ip
 
     def valid(self):
         if self.model.find('-') < 0:
@@ -52,6 +53,9 @@ class RestartCommand(Command):
         router = Routers.get(manufacuter, model)()
 
         print('User login...')
+        if self.ip:
+            router.ip = self.ip
+            
         router.login(self.username, self.password)
 
         print('Router restarting...')

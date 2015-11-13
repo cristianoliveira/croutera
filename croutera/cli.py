@@ -6,7 +6,7 @@
 """
 
 import argparse
-import sys
+import os
 
 from croutera.commands import *
 
@@ -27,15 +27,15 @@ class ParserBuilder(object):
 
         parser.add_argument(
             'model',
-            nargs='?',
+            nargs='?', default=os.getenv('ROUTER_USERNAME'),
             help='Router model. format: manufacturer-model (see --list-model)'
         )
 
         parser.add_argument(
-            'username', default=sys.getenv('ROUTER_USERNAME'),
+            'username', default=os.getenv('ROUTER_USERNAME'),
             nargs='?', help='User name to access admin page.')
         parser.add_argument(
-            'password', default=sys.getenv('ROUTER_PASSWORD'),
+            'password', default=os.getenv('ROUTER_PASSWORD'),
             nargs='?', help='Password to access admin page.')
 
         parser.add_argument(
@@ -45,14 +45,14 @@ class ParserBuilder(object):
         )
 
         parser.add_argument(
-            '-list-models', dest='list_models',
-            action='store_true', default=False,
-            help='Shows models available.'
+            '-ip', dest='ip', default=os.getenv('ROUTER_IP'),
+            help='Provide router ip.'
         )
 
         parser.add_argument(
-            '-ip', dest='ip', default=sys.getenv('ROUTER_IP'),
-            help='Provide router ip.'
+            '-list-models', dest='list_models',
+            action='store_true', default=False,
+            help='Shows models available.'
         )
 
         parser.add_argument(
@@ -77,4 +77,7 @@ class Cli(object):
             return ModelListCommand()
 
         if args.restart:
-            return RestartCommand(args.model, args.username, args.password)
+            return RestartCommand(args.model,
+                                  args.username,
+                                  args.password,
+                                  args.ip)
