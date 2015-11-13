@@ -6,6 +6,7 @@
 """
 
 import argparse
+import sys
 
 from croutera.commands import *
 
@@ -31,11 +32,11 @@ class ParserBuilder(object):
         )
 
         parser.add_argument(
-            'username',
-            nargs='?', help='User name to access admin page')
+            'username', default=sys.getenv('ROUTER_USERNAME'),
+            nargs='?', help='User name to access admin page.')
         parser.add_argument(
-            'password',
-            nargs='?', help='Password to access admin page')
+            'password', default=sys.getenv('ROUTER_PASSWORD'),
+            nargs='?', help='Password to access admin page.')
 
         parser.add_argument(
             '-restart', dest='restart',
@@ -46,7 +47,12 @@ class ParserBuilder(object):
         parser.add_argument(
             '-list-models', dest='list_models',
             action='store_true', default=False,
-            help='Shows models available'
+            help='Shows models available.'
+        )
+
+        parser.add_argument(
+            '-ip', dest='ip', default=sys.getenv('ROUTER_IP'),
+            help='Provide router ip.'
         )
 
         parser.add_argument(

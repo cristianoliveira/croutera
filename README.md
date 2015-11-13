@@ -31,7 +31,12 @@ croutera -list-models
 ```bash
 croutera -restart [model] [username] [password]
 ```
-
+You can set this params in Environment Variables:
+```
+ROUTER_IP=10.0.0.1
+ROUTER_USERNAMER=admin
+ROUTER_PASSWORD=admin
+```
 ## How to help?
  - Adding new routers. See [Routers](https://github.com/cristianoliveira/croutera/blob/master/croutera/models/base.py) to get the router interface you should implement.
  - Creating issues/requests/bug fixes
