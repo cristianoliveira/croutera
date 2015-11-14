@@ -33,9 +33,7 @@ class CiscoDPC3928S(Router):
         self.session.post(self.HOST + self.LOGIN_URI, data = self.login_data)
 
     def restart(self):
-        print ('asdasdassd')
         self.restart_data['devicerestrat_Password_check'] = self.password
         res = self.session.post(self.HOST + self.RESTART_URI,
                                 data = self.restart_data)
-        print res.content
         return res.ok
