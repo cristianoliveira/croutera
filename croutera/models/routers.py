@@ -8,6 +8,7 @@
 import urllib2
 import base64
 
+from croutera.models.cisco import *
 from croutera.models.tplink import *
 from croutera.models.dlink import *
 from croutera.exceptions import ModelNotFoundError
@@ -16,6 +17,9 @@ class Routers(object):
     """ Provide Router.class instances """
 
     MANUFACTURER_MODELS = {
+        'cisco' : {
+            'dpc3928s' : CiscoDPC3928S
+        },
         'dlink' : {
             'dir610' : DLinkDir610
         },

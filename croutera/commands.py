@@ -55,7 +55,8 @@ class RestartCommand(Command):
         print('User login...')
         if self.ip:
             router.ip = self.ip
-            
+
+        import ipdb; ipdb.set_trace()
         router.login(self.username, self.password)
 
         print('Router restarting...')

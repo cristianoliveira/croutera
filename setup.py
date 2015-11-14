@@ -5,9 +5,9 @@ import os
 import sys
 
 try:
-    from setuptools import setup
+    from setuptools import setup, find_packages
 except ImportError:
-    from distutils.core import setup
+    from distutils.core import setup, find_packages
 
 from croutera import version
 
@@ -27,12 +27,7 @@ setup(name='croutera',
       author='Cristian Oliveira',
       author_email='contato@cristianoliveira.com.br',
       license='MIT',
-      packages=[
-      'croutera',
-      'croutera/models',
-      'croutera/models/tplink',
-      'croutera/models/dlink'
-      ],
+      packages=find_packages(),
       install_requires=[
         "requests",
       ],

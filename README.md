@@ -57,9 +57,12 @@ ROUTER_PASSWORD=admin
 **Pull Request should have unit tests**
 
 ### Routers available:
+ - Cisco:
+   - DPC3928S / EPC3928: http://www.cisco.com/web/consumer/support/modem_dpc3928.html
  - Dlink:
-  - DR610: http://www.dlink.com.br/produto/dir-610-a1
+   - DR610: http://www.dlink.com.br/produto/dir-610-a1
  - TpLink:
-  - WR340G: http://www.tp-link.com.br/products/details/?model=TL-WR340G
+   - WR340G: http://www.tp-link.com.br/products/details/?model=TL-WR340G
+   - WR720N: http://www.tp-link.com.br/products/details/?model=TL-WR720N
 
 **MIT License**
