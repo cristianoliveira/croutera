@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from .cli import ParserBuilder, Cli
+from croutera.cli import ParserBuilder, Cli
 
 def run():
     print("Croutera...")
@@ -13,3 +13,7 @@ def run():
         ParserBuilder.build().parse_args(['-h'])
 
     return True
+
+
+if __name__ == '__main__':
+    run()
