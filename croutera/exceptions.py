@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-  Models routers implementations
+  Custom Croutera Exceptions 
 """
 
 class ModelNotFoundError(Exception):
