@@ -11,6 +11,7 @@ def run():
     if cmd and cmd.valid():
         cmd.execute()
     else:
+        print('--------HELP-------')
         ParserBuilder.build_help()
 
     return True

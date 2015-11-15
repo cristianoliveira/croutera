@@ -46,9 +46,14 @@ class RestartCommand(Command):
         self.ip = ip
 
     def valid(self):
-        if self.model is None or self.model.find('-') < 0:
+        if not self.model or self.model.find('-') < 0:
             print('Invalid model format')
             return False
+
+        if not self.username:
+            print('Username empty')
+            return False
+
         return True
 
     def execute(self):
