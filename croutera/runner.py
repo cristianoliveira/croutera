@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from croutera.cli import ParserBuilder, Cli
+from .cli import ParserBuilder, Cli
+
 
 def run():
     print("Croutera...")
@@ -10,7 +11,7 @@ def run():
     if cmd and cmd.valid():
         cmd.execute()
     else:
-        ParserBuilder.build().parse_args(['-h'])
+        ParserBuilder.build_help()
 
     return True
 

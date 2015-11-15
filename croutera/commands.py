@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from croutera import version
+from . import version
 from models.routers import Routers
+
 
 class Command(object):
 
@@ -12,7 +13,8 @@ class Command(object):
 
     def execute(self):
         """ Command process """
-        raise NotImplemented('Command not implemented')
+        raise NotImplementedError('Command not implemented')
+
 
 class ModelListCommand(Command):
     """ List all router models available """
@@ -27,6 +29,7 @@ class ModelListCommand(Command):
 
         return True
 
+
 class RestartCommand(Command):
     """ Restart modem / router
 
@@ -36,7 +39,7 @@ class RestartCommand(Command):
         +password+ Admin password
     """
 
-    def __init__(self, model, username, password, ip = None):
+    def __init__(self, model, username, password, ip=None):
         self.model = model
         self.username = username
         self.password = password
@@ -60,6 +63,7 @@ class RestartCommand(Command):
 
         print('Router restarting...')
         return router.restart()
+
 
 class VersionCommand(Command):
     """ Show current version installed """

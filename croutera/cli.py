@@ -8,7 +8,9 @@
 import argparse
 import os
 
-from croutera.commands import *
+from .commands import VersionCommand, \
+     RestartCommand, ModelListCommand
+
 
 class ParserBuilder(object):
     """
@@ -19,8 +21,8 @@ class ParserBuilder(object):
     def build():
         ' Compose a parsers '
 
-        description = 'Simple terminal cli to manage modem ' \
-                                      '/ routers admin actions'
+        description = """Simple terminal cli to manage modem 
+        / routers admin actions"""
 
         parser = argparse.ArgumentParser(description=description,
                                          argument_default=argparse.SUPPRESS)
@@ -62,6 +64,10 @@ class ParserBuilder(object):
         )
 
         return parser
+
+    @staticmethod
+    def build_help():
+        return ParserBuilder.build().parse_args(['-h'])
 
 
 class Cli(object):
