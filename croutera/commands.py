@@ -25,7 +25,7 @@ class ModelListCommand(Command):
             print(model+"\n")
 
         print("For more models open an issue on: \n ")
-        print("https://github.com/CristianOliveiraDaRosa/croutera")
+        print("https://github.com/CristianOliveira/croutera")
 
         return True
 
