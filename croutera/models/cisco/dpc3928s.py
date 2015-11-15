@@ -9,7 +9,7 @@ class CiscoDPC3928S(Router):
     HOST = 'http://192.168.0.1'
 
     LOGIN_URI = '/goform/Docsis_system'
-    RESTART_URI = 'goform/Devicerestart'
+    RESTART_URI = '/goform/Devicerestart'
 
     login_data = {
         'username_login': '',
