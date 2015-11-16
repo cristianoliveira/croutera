@@ -5,7 +5,6 @@
   Models routers implementations
 """
 
-import urllib2
 import base64
 
 from croutera.models.cisco import *
@@ -55,4 +54,4 @@ class Routers(object):
             models = Routers.MANUFACTURER_MODELS.get(man)
             for mdl in models:
                 available.append("%s-%s" % (man, mdl))
-        return available
+        return sorted(available)

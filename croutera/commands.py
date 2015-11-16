@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from . import version
-from models.routers import Routers
+from .version import version
+from .models.routers import Routers
 
 
 class Command(object):
