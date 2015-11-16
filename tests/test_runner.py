@@ -28,4 +28,4 @@ class RunnerTest(unittest.TestCase):
 
         runner.run()
 
-        ParserBuilder.build_help.assert_called_once()
+        ParserBuilder.build_help.assert_called_with()
