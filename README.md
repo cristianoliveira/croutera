@@ -1,4 +1,4 @@
-# Croutera
+# Croutera [![PyPI version](https://badge.fury.io/py/croutera.svg)](https://badge.fury.io/py/croutera) [![Build Status](https://travis-ci.org/cristianoliveira/croutera.svg)](https://travis-ci.org/cristianoliveira/croutera)
 Simple Cli Router Admin (*CR*outer*A*).
 
 The missing CLI for common Routers actions like login, restart , list clientes, log, etc.
@@ -9,9 +9,14 @@ but my WiFi router haven't. Croutera comes to supply this missing CLI for this
 kind of WiFi routers/modems.
 
 ## Installing
+```bash
+pip install croutera
+```
+
+### From Source
 Clone this repo and inside this folder do:
 ```bash
-make install
+make setup && make install
 ```
 
 ## Using
