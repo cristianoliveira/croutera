@@ -5,7 +5,7 @@ import base64
 
 from croutera.models.base import Router
 import requests
-
+from bs4 import BeautifulSoup
 
 class DLinkDir610(Router):
     """ Implementation for D-link DR610
@@ -16,19 +16,30 @@ class DLinkDir610(Router):
     # URIs
     LOGIN_URI = '/login.cgi'
     REBOOT_URI = '/form2Reboot.cgi'
+    WIFI_PASS_URI = '/wlan_basic.htm'
 
     LOGIN_DATA_FORMAT = 'username={0}&password={1}&submit.htm%3Flogin.htm=Send'
 
     def login(self, username, password):
         data = str.format(self.LOGIN_DATA_FORMAT, username, password)
         url = self.HOST + self.LOGIN_URI
-        response = requests.post(url, data = data)
+        self.session = requests.Session()
+        response = self.session.post(url, data = data)
 
         return response.ok
 
     def restart(self):
         data = 'reboot=Reboot&submit.htm%3Freboot.htm=Send'
         url = self.HOST + self.REBOOT_URI
-        response = requests.post(url, data = data)
+        response = self.session.post(url, data = data)
 
         return response.ok
+
+    def wifi_pass(self):
+        url = self.HOST + self.WIFI_PASS_URI
+        response = self.session.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        return soup.find('input', {'name': 'pskValue'}).get('value')
+
+

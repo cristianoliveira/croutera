@@ -51,7 +51,7 @@ setup(name='croutera',
       license='MIT',
       packages=find_packages('.'),
       install_requires=[
-        "requests",
+        "requests", "beautifulsoup4"
       ],
       scripts=['bin/croutera'],
       zip_safe=False)
