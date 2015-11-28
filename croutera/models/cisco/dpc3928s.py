@@ -3,6 +3,8 @@
 
 from croutera.models.base import Router
 import requests
+from bs4 import BeautifulSoup
+
 
 class CiscoDPC3928S(Router):
 
@@ -10,6 +12,7 @@ class CiscoDPC3928S(Router):
 
     LOGIN_URI = '/goform/Docsis_system'
     RESTART_URI = '/goform/Devicerestart'
+    WIFI_PASS_URI = '/Quick_setup.asp'
 
     login_data = {
         'username_login': '',
@@ -37,3 +40,11 @@ class CiscoDPC3928S(Router):
         res = self.session.post(self.HOST + self.RESTART_URI,
                                 data = self.restart_data)
         return res.ok
+
+    def wifi_pass(self):
+        url = self.HOST + self.WIFI_PASS_URI
+        response = self.session.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        return soup.find('input', {'id':'wl5g_wpa_psk_key'}).get('value')
+
+
