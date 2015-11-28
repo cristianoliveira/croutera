@@ -7,3 +7,6 @@
 
 class ModelNotFoundError(Exception):
     pass
+
+class InvalidCommandArgs(Exception):
+    pass

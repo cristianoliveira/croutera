@@ -10,7 +10,7 @@ import os
 
 from .commands import VersionCommand, \
      RestartCommand, ModelListCommand, ShowWifiPassCommand
-
+from croutera.exceptions import InvalidCommandArgs
 
 class ParserBuilder(object):
     """
@@ -90,8 +90,14 @@ class Cli(object):
         if args.list_models:
             return ModelListCommand()
 
+        if not Cli.validate(args):
+            raise InvalidCommandArgs()
+
+        manuf, model = args.model.split('-')
+
         router_info = {
-            'model': args.model,
+            'manufacturer': manuf,
+            'model': model,
             'username': args.username,
             'password': args.password,
             'ip': args.ip
@@ -102,3 +108,14 @@ class Cli(object):
 
         if args.restart:
             return RestartCommand(router_info)
+
+    @staticmethod
+    def validate(args):
+        if not args.model:
+            print('Model was not informed.')
+            return False
+
+        if not '-' in args.model:
+            print('Invalid model format.')
+            return False
+        return True

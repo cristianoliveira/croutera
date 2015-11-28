@@ -42,10 +42,11 @@ class AuthenticatedCommand(Command):
             ip (string): Optional Router IP
     """
     def __init__(self, data):
-        self.manuf, self.model = data['model'].split('-')
+        self.manuf = data['manufacturer']
+        self.model = data['model']
         self.router = Routers.get(self.manuf, self.model)()
         self.router.ip = data.get('ip')
-        self.connected = self.router.login(data['username'], data.get('password'))
+        self.router.login(data['username'], data.get('password'))
 
 class RestartCommand(AuthenticatedCommand):
 
