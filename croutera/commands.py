@@ -16,6 +16,7 @@ class Command(object):
         raise NotImplementedError('Command not implemented')
 
 
+
 class ModelListCommand(Command):
     """ List all router models available """
 
@@ -30,45 +31,34 @@ class ModelListCommand(Command):
         return True
 
 
-class RestartCommand(Command):
-    """ Restart modem / router
+class AuthenticatedCommand(Command):
+    """  Commands which require login
 
-    params:
-        +model+ Router model name
-        +username+ Admin user name
-        +password+ Admin password
+    Args:
+        :data (hash): contains
+            model (string): Router model name
+            username (string): Admin user name
+            password (string): Admin password
+            ip (string): Optional Router IP
     """
+    def __init__(self, data):
+        self.manuf, self.model = data['model'].split('-')
+        self.router = Routers.get(self.manuf, self.model)()
+        self.router.ip = data.get('ip')
+        self.connected = self.router.login(data['username'], data.get('password'))
 
-    def __init__(self, model, username, password, ip=None):
-        self.model = model
-        self.username = username
-        self.password = password
-        self.ip = ip
-
-    def valid(self):
-        if not self.model or self.model.find('-') < 0:
-            print('Invalid model format')
-            return False
-
-        if not self.username:
-            print('Username empty')
-            return False
-
-        return True
+class RestartCommand(AuthenticatedCommand):
 
     def execute(self):
-        manufacuter, model = self.model.split('-')
-        router = Routers.get(manufacuter, model)()
-
-        print('User login...')
-        if self.ip:
-            router.ip = self.ip
-
-        router.login(self.username, self.password)
-
         print('Router restarting...')
-        return router.restart()
+        return self.router.restart()
 
+
+class ShowWifiPassCommand(AuthenticatedCommand):
+
+    def execute(self):
+        print("Current Wifi Pass: " + self.router.wifi_pass())
+        return True
 
 class VersionCommand(Command):
     """ Show current version installed """

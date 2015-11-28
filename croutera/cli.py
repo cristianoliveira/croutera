@@ -9,7 +9,7 @@ import argparse
 import os
 
 from .commands import VersionCommand, \
-     RestartCommand, ModelListCommand
+     RestartCommand, ModelListCommand, ShowWifiPassCommand
 
 
 class ParserBuilder(object):
@@ -40,6 +40,7 @@ class ParserBuilder(object):
             'password', default=os.getenv('ROUTER_PASSWORD'),
             nargs='?', help='Password to access admin page.')
 
+        # Commands
         parser.add_argument(
             '-restart', dest='restart',
             action='store_true', default=False,
@@ -47,14 +48,21 @@ class ParserBuilder(object):
         )
 
         parser.add_argument(
-            '-ip', dest='ip', default=os.getenv('ROUTER_IP'),
-            help='Provide router ip.'
+            '-wifi-pass', dest='wifi_pass',
+            action='store_true', default=False,
+            help='Reset router by model.'
         )
 
         parser.add_argument(
             '-list-models', dest='list_models',
             action='store_true', default=False,
             help='Shows models available.'
+        )
+
+        # Aux
+        parser.add_argument(
+            '-ip', dest='ip', default=os.getenv('ROUTER_IP'),
+            help='Provide router ip.'
         )
 
         parser.add_argument(
@@ -82,8 +90,15 @@ class Cli(object):
         if args.list_models:
             return ModelListCommand()
 
+        router_info = {
+            'model': args.model,
+            'username': args.username,
+            'password': args.password,
+            'ip': args.ip
+        }
+
+        if args.wifi_pass:
+            return ShowWifiPassCommand(router_info)
+
         if args.restart:
-            return RestartCommand(args.model,
-                                  args.username,
-                                  args.password,
-                                  args.ip)
+            return RestartCommand(router_info)
