@@ -16,7 +16,6 @@ class Command(object):
         raise NotImplementedError('Command not implemented')
 
 
-
 class ModelListCommand(Command):
     """ List all router models available """
 
@@ -48,6 +47,7 @@ class AuthenticatedCommand(Command):
         self.router.ip = data.get('ip')
         self.router.login(data['username'], data.get('password'))
 
+
 class RestartCommand(AuthenticatedCommand):
 
     def execute(self):
@@ -60,6 +60,7 @@ class ShowWifiPassCommand(AuthenticatedCommand):
     def execute(self):
         print("Current Wifi Pass: " + self.router.wifi_pass())
         return True
+
 
 class VersionCommand(Command):
     """ Show current version installed """
