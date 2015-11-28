@@ -30,8 +30,8 @@ class Routers(object):
 
     @staticmethod
     def get(manufacturer, model):
-        router = Routers.MANUFACTURER_MODELS.get(manufacturer).get(model)
-
+        models = Routers.from_manufacturer(manufacturer)
+        router = models.get(model)
         if router is None:
             raise ModelNotFoundError('Model not found for this manufacturer.')
 
@@ -42,7 +42,7 @@ class Routers(object):
         models = Routers.MANUFACTURER_MODELS.get(manufacturer)
 
         if models is None:
-            raise ModelNotFoundError('Model not found for this manufacturer.')
+            raise ModelNotFoundError('Manufacturer not found.')
 
         return models
 
