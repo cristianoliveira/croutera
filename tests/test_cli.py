@@ -10,6 +10,7 @@ import argparse
 
 from croutera.cli import Cli, ParserBuilder
 from croutera.commands import *
+from croutera.exceptions import InvalidCommandArgs
 
 class CliTest(unittest.TestCase):
 
@@ -46,6 +47,19 @@ class CliTest(unittest.TestCase):
             Cli.command(self.parser.parse_args(self.cmd('--version'))),
             VersionCommand
         )
+
+    def test_it_raises_invalid_argument_when_model_has_wrong_format(self):
+        self.assertRaises(
+            InvalidCommandArgs,
+            Cli.command,self.parser.parse_args(self.cmd('-wifi-pass ciscomodel1'))
+        )
+
+
+    def test_it_raises_invalid_argument_error_without_model(self):
+        self.assertRaises(InvalidCommandArgs,
+                          Cli.command,self.parser.parse_args(self.cmd('-restart')))
+        self.assertRaises(InvalidCommandArgs,
+                          Cli.command,self.parser.parse_args(self.cmd('-wifi-pass')))
 
     def cmd(self, terminal_args):
         return terminal_args.split()

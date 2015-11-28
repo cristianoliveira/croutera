@@ -118,4 +118,5 @@ class Cli(object):
         if not '-' in args.model:
             print('Invalid model format.')
             return False
+
         return True
