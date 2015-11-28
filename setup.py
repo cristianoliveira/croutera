@@ -14,10 +14,10 @@ from croutera import version
 import os
 
 def is_package(path):
-        return (
-            os.path.isdir(path) and
-            os.path.isfile(os.path.join(path, '__init__.py'))
-            )
+    return (
+        os.path.isdir(path) and
+        os.path.isfile(os.path.join(path, '__init__.py'))
+        )
 
 def find_packages(path, base=""):
     """ Find all packages in path """
