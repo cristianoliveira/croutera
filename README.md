@@ -36,11 +36,17 @@ croutera -list-models
 ```bash
 croutera -restart [model] [username] [password]
 ```
+
+#### Show Wifi Password
+```bash
+croutera -wifi-pass [model] [username] [password]
+```
+
 You can set this params in Environment Variables:
 ```
 ROUTER_MODEL=dlink-dir610
 ROUTER_IP=10.0.0.1
-ROUTER_USERNAMER=admin
+ROUTER_USERNAME=admin
 ROUTER_PASSWORD=admin
 ```
 ## How to help?
