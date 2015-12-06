@@ -49,16 +49,15 @@ ROUTER_IP=10.0.0.1
 ROUTER_USERNAME=admin
 ROUTER_PASSWORD=admin
 ```
-## How to help?
+# Contributing
+
+ - Suggesting new routers to be added.
  - Adding new routers. See [Routers](https://github.com/cristianoliveira/croutera/blob/master/croutera/models/base.py) to get the router interface you should implement.
  - Creating issues/requests/bug fixes
  - Adding Unit Tests
  - Using! And sending feedback.
 
-## How to test my Implementation?
- See the online simulators available. [Simulators](https://github.com/cristianoliveira/croutera/issues/11)
-
-## Contributing
+## Code Contribute
  - Fork it!
  - Create your feature branch: `git checkout -b my-new-feature`
  - Commit your changes: `git commit -am 'Add some feature'`
@@ -66,6 +65,9 @@ ROUTER_PASSWORD=admin
  - Submit a pull request
 
 **Pull Request should have unit tests**
+
+## How to test my Implementation?
+ See the online simulators available. [Simulators](https://github.com/cristianoliveira/croutera/issues/11)
 
 ### Routers available:
  - Cisco:
