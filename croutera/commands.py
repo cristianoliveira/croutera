@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from croutera.version import version
-from croutera.models.routers import Routers
+from croutera.models import Routers
 
 
 class Command(object):
