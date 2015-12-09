@@ -23,20 +23,20 @@ class CiscoDPC3928S(Router):
     }
 
     restart_data = {
-        'devicerestrat_Password_check':'531278',
+        'devicerestrat_Password_check':'',
         'mtenRestore': 'Device Restart',
         'devicerestart':1,
         'devicerestrat_getUsercheck': ''
     }
 
     def login(self, username, password):
-        self.username = self.login_data['username_login'] = username
-        self.password = self.login_data['password_login'] = password
+        self.login_data['username_login'] = username
+        self.login_data['password_login'] = password
         self.session = requests.Session()
         self.session.post(self.HOST + self.LOGIN_URI, data = self.login_data)
 
     def restart(self):
-        self.restart_data['devicerestrat_Password_check'] = self.password
+        self.restart_data['devicerestrat_Password_check'] = self.login_data['password_login']
         res = self.session.post(self.HOST + self.RESTART_URI,
                                 data = self.restart_data)
         return res.ok
