@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from .cli import ParserBuilder, Cli
+from croutera.cli import ParserBuilder, Cli
 
 
 def run():

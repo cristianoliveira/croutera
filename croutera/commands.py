@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from .version import version
-from .models.routers import Routers
+from croutera.version import version
+from croutera.models.routers import Routers
 
 
 class Command(object):

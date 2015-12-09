@@ -8,7 +8,7 @@
 import argparse
 import os
 
-from .commands import VersionCommand, \
+from croutera.commands import VersionCommand, \
      RestartCommand, ModelListCommand, ShowWifiPassCommand
 from croutera.exceptions import InvalidCommandArgs
 
