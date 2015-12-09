@@ -8,14 +8,14 @@
 import unittest
 import argparse
 
-from croutera.cli import Cli, ParserBuilder
+from croutera.cli import Cli, ArgsParserBuilder
 from croutera.commands import *
 from croutera.exceptions import InvalidCommandArgs
 
 class CliTest(unittest.TestCase):
 
     def setUp(self):
-        self.parser = ParserBuilder.build()
+        self.parser = ArgsParserBuilder.build()
 
     def test_it_returns_no_command(self):
         args = self.parser.parse_args(self.cmd('-'))

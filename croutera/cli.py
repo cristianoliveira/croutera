@@ -12,7 +12,50 @@ from croutera.commands import VersionCommand, \
      RestartCommand, ModelListCommand, ShowWifiPassCommand
 from croutera.exceptions import InvalidCommandArgs
 
-class ParserBuilder(object):
+class Cli(object):
+
+    @staticmethod
+    def command(args):
+        """ Retrive command by args """
+
+        if args.version:
+            return VersionCommand()
+
+        if args.list_models:
+            return ModelListCommand()
+
+        if not Cli.validate(args):
+            raise InvalidCommandArgs()
+
+        manuf, model = args.model.split('-')
+
+        router_info = {
+            'manufacturer': manuf,
+            'model': model,
+            'username': args.username,
+            'password': args.password,
+            'ip': args.ip
+        }
+
+        if args.wifi_pass:
+            return ShowWifiPassCommand(router_info)
+
+        if args.restart:
+            return RestartCommand(router_info)
+
+    @staticmethod
+    def validate(args):
+        if not args.model:
+            print('Model was not informed.')
+            return False
+
+        if not '-' in args.model:
+            print('Invalid model format.')
+            return False
+
+        return True
+
+class ArgsParserBuilder(object):
     """
        Implement logic to parse args.
     """
@@ -78,45 +121,4 @@ class ParserBuilder(object):
         return ParserBuilder.build().parse_args(['-h'])
 
 
-class Cli(object):
 
-    @staticmethod
-    def command(args):
-        """ Retrive command by args """
-
-        if args.version:
-            return VersionCommand()
-
-        if args.list_models:
-            return ModelListCommand()
-
-        if not Cli.validate(args):
-            raise InvalidCommandArgs()
-
-        manuf, model = args.model.split('-')
-
-        router_info = {
-            'manufacturer': manuf,
-            'model': model,
-            'username': args.username,
-            'password': args.password,
-            'ip': args.ip
-        }
-
-        if args.wifi_pass:
-            return ShowWifiPassCommand(router_info)
-
-        if args.restart:
-            return RestartCommand(router_info)
-
-    @staticmethod
-    def validate(args):
-        if not args.model:
-            print('Model was not informed.')
-            return False
-
-        if not '-' in args.model:
-            print('Invalid model format.')
-            return False
-
-        return True

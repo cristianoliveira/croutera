@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from croutera.cli import ParserBuilder, Cli
+from croutera.cli import ArgsParserBuilder, Cli
 
 
 def run():
     print("Croutera...")
-    args = ParserBuilder.build().parse_args()
-    cmd = Cli.command(args)
+    argsparser = ArgsParserBuilder.build()
+    cmd = Cli.command(argsparser.parse_args())
     if cmd and cmd.valid():
         cmd.execute()
     else:
         print('--------HELP-------')
-        ParserBuilder.build_help()
+        ArgsParserBuilder.build_help()
 
     return True
 
