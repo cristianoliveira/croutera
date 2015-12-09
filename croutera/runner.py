@@ -1,13 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys
+
 from croutera.cli import ArgsParserBuilder, Cli
 
 
 def run():
     print("Croutera...")
-    argsparser = ArgsParserBuilder.build()
-    cmd = Cli.command(argsparser.parse_args())
+
+    args = ArgsParserBuilder.build(sys.argv[1:])
+    cmd = Cli.command(args)
+
     if cmd and cmd.valid():
         cmd.execute()
     else:

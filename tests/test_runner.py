@@ -16,8 +16,8 @@ class RunnerTest(unittest.TestCase):
     @patch('croutera.runner.ArgsParserBuilder')
     def test_it_runs_with_no_argument(self, ArgsParserBuilder):
         args = Mock()
-        parser = Mock(**{'parse_args': args})
-        ArgsParserBuilder.build.return_value = parser
+        args.model.return_value = 'man-model'
+        ArgsParserBuilder.build.return_value = args
 
         self.assertTrue(runner.run())
 

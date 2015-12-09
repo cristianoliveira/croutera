@@ -18,14 +18,14 @@ class Cli(object):
     def command(args):
         """ Retrive command by args """
 
+        if not Cli.validate(args):
+            raise InvalidCommandArgs()
+
         if args.version:
             return VersionCommand()
 
         if args.list_models:
             return ModelListCommand()
-
-        if not Cli.validate(args):
-            raise InvalidCommandArgs()
 
         manuf, model = args.model.split('-')
 
@@ -45,6 +45,9 @@ class Cli(object):
 
     @staticmethod
     def validate(args):
+        if args.version or args.list_models:
+            return True
+
         if not args.model:
             print('Model was not informed.')
             return False
@@ -61,7 +64,7 @@ class ArgsParserBuilder(object):
     """
 
     @staticmethod
-    def build():
+    def build(args):
         ' Compose a parsers '
 
         description = """Simple terminal cli to manage modem 
@@ -114,11 +117,11 @@ class ArgsParserBuilder(object):
             help='Shows current version.'
         )
 
-        return parser
+        return parser.parse_args(args)
 
     @staticmethod
     def build_help():
-        return ParserBuilder.build().parse_args(['-h'])
+        return ArgsParserBuilder.build(['-h'])
 
 
 
