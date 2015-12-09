@@ -7,9 +7,9 @@
 
 import base64
 
-from croutera.models.cisco import *
-from croutera.models.tplink import *
-from croutera.models.dlink import *
+from croutera.models.cisco import CiscoDPC3928S
+from croutera.models.tplink import TplinkWR340, TplinkWR720N
+from croutera.models.dlink import DLinkDir610
 from croutera.exceptions import ModelNotFoundError
 
 class Routers(object):
