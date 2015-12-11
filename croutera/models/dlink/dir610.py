@@ -18,18 +18,26 @@ class DLinkDir610(Router):
     REBOOT_URI = '/form2Reboot.cgi'
     WIFI_PASS_URI = '/wlan_basic.htm'
 
-    LOGIN_DATA_FORMAT = 'username={0}&password={1}&submit.htm%3Flogin.htm=Send'
-
     def login(self, username, password):
-        data = str.format(self.LOGIN_DATA_FORMAT, username, password)
+        data = {
+            'username': username,
+            'password': password,
+            'submit.htm%3Flogin.htm': 'Send'
+        }
+
         url = self.HOST + self.LOGIN_URI
+
         self.session = requests.Session()
         response = self.session.post(url, data = data)
 
         return response.ok
 
     def restart(self):
-        data = 'reboot=Reboot&submit.htm%3Freboot.htm=Send'
+        data = {
+            'reboot': 'Reboot',
+            'submit.htm%3Freboot.htm': 'Send'
+        }
+
         url = self.HOST + self.REBOOT_URI
         response = self.session.post(url, data = data)
 

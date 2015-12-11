@@ -15,20 +15,44 @@ class CiscoDPC3928S(Router):
     WIFI_PASS_URI = '/Quick_setup.asp'
 
     def login(self, username, password):
+<<<<<<< HEAD
+        login_data = {
+            'username_login': '',
+            'password_login': '',
+=======
         data = {
             'username_login': username,
             'password_login': password,
+>>>>>>> refact: standardize data passing to requests
             'LanguageSelect': 'en',
             'Language_Submit' :'0',
             'login' :'Log In'
         }
 
+<<<<<<< HEAD
+        self.login_data['username_login'] = username
+        self.login_data['password_login'] = password
+=======
         self.password = password
 
+>>>>>>> refact: standardize data passing to requests
         self.session = requests.Session()
-        self.session.post(self.HOST + self.LOGIN_URI, data = self.login_data)
+        self.session.post(self.HOST + self.LOGIN_URI, data = data)
 
     def restart(self):
+<<<<<<< HEAD
+        restart_data = {
+           'devicerestrat_Password_check':'',
+           'mtenRestore': 'Device Restart',
+           'devicerestart':1,
+           'devicerestrat_getUsercheck': ''
+        }
+
+        self.restart_data['devicerestrat_Password_check'] = \
+                 self.login_data['password_login']
+        res = self.session.post(self.HOST + self.RESTART_URI,
+                                data = self.restart_data)
+=======
         data = {
             'devicerestrat_Password_check': self.password,
             'mtenRestore': 'Device Restart',
@@ -37,6 +61,7 @@ class CiscoDPC3928S(Router):
         }
 
         res = self.session.post(self.HOST + self.RESTART_URI, data = data)
+>>>>>>> refact: standardize data passing to requests
         return res.ok
 
     def wifi_pass(self):
