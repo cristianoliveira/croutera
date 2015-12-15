@@ -29,7 +29,7 @@ class CliTest(TestCase):
     def test_it_returns_model_list_command(self):
         args = ArgsParserBuilder.build(self.cmd('-list-models'))
         command = Cli.command(args)
-        self.assertIsInstance(command, ModelListCommand)
+        self.assertTrue(command, ModelListCommand)
 
     def test_it_returns_version_command(self):
         args = ArgsParserBuilder.build(self.cmd('-v'))
@@ -42,17 +42,23 @@ class CliTest(TestCase):
             VersionCommand
         )
 
+    def test_it_returns_chain_command(self):
+        args = ArgsParserBuilder.build(self.cmd('-restart manufacturer-model1 usr pas'))
+
+        command = Cli.command(args)
+        self.assertIsInstance(command, ChainCommand)
+
     def test_it_returns_restart_command(self):
         args = ArgsParserBuilder.build(self.cmd('-restart manufacturer-model1 usr pas'))
 
         command = Cli.command(args)
-        self.assertIsInstance(command, RestartCommand)
+        self.assertTrue(command.commands[1], RestartCommand)
 
     def test_it_returns_show_wifi_command(self):
         args = ArgsParserBuilder.build(self.cmd('-wifi-pass manufacturer-model1 usr pas'))
 
         command = Cli.command(args)
-        self.assertIsInstance(command, ShowWifiPassCommand)
+        self.assertIsInstance(command.commands[1], ShowWifiPassCommand)
 
     def test_it_raises_invalid_argument_when_model_has_wrong_format(self):
         self.assertRaises(

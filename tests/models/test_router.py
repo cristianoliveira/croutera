@@ -15,10 +15,10 @@ from croutera.exceptions import ModelNotFoundError
 class RoutersTest(unittest.TestCase):
 
     def setUp(self):
-        self.model1 = mock.Mock({'description' : 'manufacturer model 1'})
-        self.model2 = mock.Mock({'description' : 'manufacturer model 2'})
-        self.model3 = mock.Mock({'description' : 'manufacturer2 model 1'})
-        self.model4 = mock.Mock({'description' : 'manufacturer2 model 2'})
+        self.model1 = StubRouter
+        self.model2 = mock.Mock
+        self.model3 = mock.Mock
+        self.model4 = mock.Mock
         self.models = {
            'manufacturer' : {
                 'model1' : self.model1,
@@ -36,7 +36,8 @@ class RoutersTest(unittest.TestCase):
                          Routers.from_manufacturer('manufacturer'))
 
     def test_it_returns_model_from_manufacturer(self):
-        self.assertEqual(self.model1, Routers.get('manufacturer', 'model1'))
+        model = Routers.get('manufacturer', 'model1')
+        self.assertIsInstance(model, StubRouter)
 
     def test_it_raise_model_not_found_error(self):
         self.assertRaises(ModelNotFoundError, Routers.get, 'manufacturer', 'model_invalid')
@@ -48,3 +49,7 @@ class RoutersTest(unittest.TestCase):
                                             'manufacturer2-model3',
                                             'manufacturer2-model4'
                                         ])
+
+
+class StubRouter():
+    pass

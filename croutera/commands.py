@@ -37,25 +37,49 @@ class VersionCommand(Command):
         return True
 
 
-class RouterCommand(Command):
-    """ Commands executed in the given router
+class AuthorizeCommand(Command):
 
-    Args:
-        router (base.Router)
-    """
+    def __init__(self, router, user, password):
+        self.router = router
+        self.user = user
+        self.password = password
+
+    def execute(self):
+        print('Authorizing...')
+        return self.router.login(self.user, self.password)
+
+class RestartCommand(Command):
+
     def __init__(self, router):
-       self.router = router
-
-
-class RestartCommand(RouterCommand):
+        self.router = router
 
     def execute(self):
         print('Router restarting...')
         return self.router.restart()
 
 
-class ShowWifiPassCommand(RouterCommand):
+class ShowWifiPassCommand(Command):
+
+    def __init__(self, router):
+        self.router = router
 
     def execute(self):
         print("Current Wifi Pass: " + self.router.wifi_pass())
         return True
+
+class ChainCommand(Command):
+    """ Compose a chain of commands
+    to be executed in a roll.
+    """
+    def __init__(self):
+        self.commands = []
+
+    def add(self, command):
+        self.commands.append(command)
+
+    def execute(self):
+        for command in self.commands:
+            if not command.execute():
+                return False
+        return True
+

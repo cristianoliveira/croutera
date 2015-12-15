@@ -35,7 +35,7 @@ class Routers(object):
         if router is None:
             raise ModelNotFoundError('Model not found for this manufacturer.')
 
-        return router
+        return router()
 
     @staticmethod
     def from_manufacturer(manufacturer):

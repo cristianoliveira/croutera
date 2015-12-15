@@ -8,8 +8,9 @@
 import os
 import argparse
 
-from croutera.commands import VersionCommand, \
-     RestartCommand, ModelListCommand, ShowWifiPassCommand
+from croutera.commands import VersionCommand, RestartCommand, \
+     ModelListCommand, ShowWifiPassCommand, ChainCommand, \
+     AuthorizeCommand
 from croutera.exceptions import InvalidCommandArgs
 from croutera.models import Routers
 
@@ -31,13 +32,17 @@ class Cli(object):
 
         manufacturer, model = args.model.split('-')
         router = Routers.get(manufacturer, model)
-        router.login(args.username, args.password)
+
+        chain = ChainCommand()
+        chain.add(AuthorizeCommand(router, args.username, args.password))
 
         if args.wifi_pass:
-            return ShowWifiPassCommand(router)
+            chain.add(ShowWifiPassCommand(router))
+            return chain
 
         if args.restart:
-            return RestartCommand(router)
+            chain.add(RestartCommand(router))
+            return chain
 
     @staticmethod
     def validate(args):

@@ -14,30 +14,30 @@ class CiscoDPC3928S(Router):
     RESTART_URI = '/goform/Devicerestart'
     WIFI_PASS_URI = '/Quick_setup.asp'
 
-    login_data = {
-        'username_login': '',
-        'password_login': '',
-        'LanguageSelect': 'en',
-        'Language_Submit' :'0',
-        'login' :'Log In'
-    }
-
-    restart_data = {
-        'devicerestrat_Password_check':'',
-        'mtenRestore': 'Device Restart',
-        'devicerestart':1,
-        'devicerestrat_getUsercheck': ''
-    }
-
     def login(self, username, password):
+        login_data = {
+            'username_login': '',
+            'password_login': '',
+            'LanguageSelect': 'en',
+            'Language_Submit' :'0',
+            'login' :'Log In'
+        }
+
         self.login_data['username_login'] = username
         self.login_data['password_login'] = password
         self.session = requests.Session()
         self.session.post(self.HOST + self.LOGIN_URI, data = self.login_data)
 
     def restart(self):
+        restart_data = {
+           'devicerestrat_Password_check':'',
+           'mtenRestore': 'Device Restart',
+           'devicerestart':1,
+           'devicerestrat_getUsercheck': ''
+        }
+
         self.restart_data['devicerestrat_Password_check'] = \
-                self.login_data['password_login']
+                 self.login_data['password_login']
         res = self.session.post(self.HOST + self.RESTART_URI,
                                 data = self.restart_data)
         return res.ok
