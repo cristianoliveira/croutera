@@ -29,42 +29,33 @@ class ModelListCommand(Command):
 
         return True
 
+class VersionCommand(Command):
+    """ Show current version installed """
 
-class AuthenticatedCommand(Command):
-    """  Commands which require login
+    def execute(self):
+        print('Croutera Version: ' + version())
+        return True
+
+
+class RouterCommand(Command):
+    """ Commands executed in the given router
 
     Args:
-        :data (hash): contains
-            model (string): Router model name
-            username (string): Admin user name
-            password (string): Admin password
-            ip (string): Optional Router IP
+        router (base.Router)
     """
-    def __init__(self, data):
-        self.manuf = data['manufacturer']
-        self.model = data['model']
-        self.router = Routers.get(self.manuf, self.model)()
-        self.router.ip = data.get('ip')
-        self.router.login(data['username'], data.get('password'))
+    def __init__(self, router):
+       self.router = router
 
 
-class RestartCommand(AuthenticatedCommand):
+class RestartCommand(RouterCommand):
 
     def execute(self):
         print('Router restarting...')
         return self.router.restart()
 
 
-class ShowWifiPassCommand(AuthenticatedCommand):
+class ShowWifiPassCommand(RouterCommand):
 
     def execute(self):
         print("Current Wifi Pass: " + self.router.wifi_pass())
-        return True
-
-
-class VersionCommand(Command):
-    """ Show current version installed """
-
-    def execute(self):
-        print('Croutera Version: ' + version())
         return True

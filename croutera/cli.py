@@ -5,12 +5,14 @@
   Cli terminal module
 """
 
-import argparse
 import os
+import argparse
 
 from croutera.commands import VersionCommand, \
      RestartCommand, ModelListCommand, ShowWifiPassCommand
 from croutera.exceptions import InvalidCommandArgs
+from croutera.models import Routers
+
 
 class Cli(object):
 
@@ -27,21 +29,15 @@ class Cli(object):
         if args.list_models:
             return ModelListCommand()
 
-        manuf, model = args.model.split('-')
-
-        router_info = {
-            'manufacturer': manuf,
-            'model': model,
-            'username': args.username,
-            'password': args.password,
-            'ip': args.ip
-        }
+        manufacturer, model = args.model.split('-')
+        router = Routers.get(manufacturer, model)
+        router.login(args.username, args.password)
 
         if args.wifi_pass:
-            return ShowWifiPassCommand(router_info)
+            return ShowWifiPassCommand(router)
 
         if args.restart:
-            return RestartCommand(router_info)
+            return RestartCommand(router)
 
     @staticmethod
     def validate(args):
@@ -52,7 +48,7 @@ class Cli(object):
             print('Model was not informed.')
             return False
 
-        if not '-' in args.model:
+        if not '-' in args.model or len(args.model) < 3:
             print('Invalid model format.')
             return False
 
