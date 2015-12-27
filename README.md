@@ -77,5 +77,5 @@ ROUTER_PASSWORD=admin
  - TpLink:
    - WR340G: http://www.tp-link.com.br/products/details/?model=TL-WR340G
    - WR720N: http://www.tp-link.com.br/products/details/?model=TL-WR720N
-
+   - And all TL-WR* based router using 'tplink-tl-wrbased'
 **MIT License**

@@ -4,6 +4,15 @@ from abc import ABCMeta, abstractmethod
 class Router(object):
     __metaclass__ = ABCMeta
 
+    config = {
+        'ip': '192.168.0.1',
+        'uris': {
+            'login': '',
+            'reboot': '',
+            'wifi_settings': ''
+        }
+    }
+
     @abstractmethod
     def login(self, user, password):
         """ Provide logic to auth into router admin page """
@@ -22,3 +31,6 @@ class Router(object):
     def _command_not_implemented(self):
         print('This command was not implemented for this model.')
 
+    def endpoint(self, uri):
+        ' provide a url to reach a given endpoint '
+        return "http://%s/%s" % (self.config['ip'], self.config['uris'][uri])

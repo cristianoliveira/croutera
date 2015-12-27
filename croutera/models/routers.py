@@ -8,7 +8,7 @@
 import base64
 
 from croutera.models.cisco import CiscoDPC3928S
-from croutera.models.tplink import TplinkWR340, TplinkWR720N
+from croutera.models.tplink import TplinkWR340, TplinkWR720N, tlwrbased
 from croutera.models.dlink import DLinkDir610
 from croutera.exceptions import ModelNotFoundError
 
@@ -24,7 +24,8 @@ class Routers(object):
         },
         'tplink' : {
             'wr340g' : TplinkWR340,
-            'wr720n' : TplinkWR720N
+            'wr720n' : TplinkWR720N,
+            'tl-wrbased': tlwrbased.TplinkTLWRBased
         }
     }
 

@@ -5,42 +5,14 @@ import base64
 import requests
 import re
 
-from croutera.models.base import Router
+from croutera.models.tplink.tlwrbased import TplinkTLWRBased
 from bs4 import BeautifulSoup
 
 
-class TplinkWR340(Router):
+class TplinkWR340(TplinkTLWRBased):
     """ Implementation for TpLink WR340G and WR340GD
     see: http://www.tp-link.com.br/products/details/?model=TL-WR340G
     """
 
-    HOST = 'http://192.168.1.1'
-
-    LOGIN_URI = '/'
-    REBOOT_URI = '/userRpm/SysRebootRpm.htm?Reboot=Reboot'
-    WIFI_PASS_URI = '/userRpm/WlanNetworkRpm.htm'
-
-
-    def login(self, username, password):
-        self.username = username
-        self.password = password
-
-        url = self.HOST + self.LOGIN_URI
-        self.session = requests.Session()
-        response = self.session.get(url, auth = (username, password))
-
-        return response.ok
-
-    def restart(self):
-        url = self.HOST + self.REBOOT_URI
-        response = self.session.get(url, auth = (self.username, self.password))
-
-        return response.ok
-
-    def wifi_pass(self):
-        url = self.HOST + self.WIFI_PASS_URI
-        import ipdb; ipdb.set_trace()
-        response = self.session.get(url, auth = (self.username, self.password))
-        soup = BeautifulSoup(response.content, 'html.parser')
-        wifi_data = re.findall("(.*?),", soup.find('script').text)
-        return wifi_data[26]
+    def __init__(self):
+        self.config['ip'] = '192.168.1.1'
