@@ -7,6 +7,7 @@ from croutera.models.base import Router
 import requests
 from bs4 import BeautifulSoup
 
+
 class DLinkDir610(Router):
     """ Implementation for D-link DR610
     see: http://www.dlink.com.br/produto/dir-610-a1
