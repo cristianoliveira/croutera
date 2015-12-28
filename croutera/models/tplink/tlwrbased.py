@@ -40,7 +40,6 @@ class TplinkTLWRBased(Router):
         return response.ok
 
     def wifi_pass(self):
-        import ipdb; ipdb.set_trace()
         response = self.session.get(self.endpoint('wifi_settings'),
                                     auth = (self.username, self.password))
         soup = BeautifulSoup(response.content, 'html.parser')

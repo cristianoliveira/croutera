@@ -8,6 +8,7 @@
 import os
 import argparse
 
+from croutera import extractor
 from croutera.commands import VersionCommand, RestartCommand, \
      ModelListCommand, ShowWifiPassCommand, ChainCommand, \
      AuthorizeCommand
@@ -30,7 +31,8 @@ class Cli(object):
         if args.list_models:
             return ModelListCommand()
 
-        manufacturer, model = args.model.split('-')
+        manufacturer = extractor.extract_manufacturer(args.model)
+        model = extractor.extract_model(args.model)
         router = Routers.get(manufacturer, model)
 
         chain = ChainCommand()
