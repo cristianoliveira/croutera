@@ -8,11 +8,14 @@ from bs4 import BeautifulSoup
 
 class CiscoDPC3928S(Router):
 
-    HOST = 'http://192.168.0.1'
-
-    LOGIN_URI = '/goform/Docsis_system'
-    RESTART_URI = '/goform/Devicerestart'
-    WIFI_PASS_URI = '/Quick_setup.asp'
+    config = {
+        'ip': '192.168.0.1',
+        'uris': {
+            'login': 'goform/Docsis_system',
+            'reboot': 'goform/Devicerestart',
+            'wifi_settings': 'Quick_setup.asp'
+        }
+    }
 
     def login(self, username, password):
         data = {
@@ -26,7 +29,7 @@ class CiscoDPC3928S(Router):
         self.password = password
 
         self.session = requests.Session()
-        self.session.post(self.HOST + self.LOGIN_URI, data = self.login_data)
+        self.session.post(self.endpoint('login'), data = self.login_data)
 
     def restart(self):
         data = {
@@ -36,12 +39,11 @@ class CiscoDPC3928S(Router):
             'devicerestrat_getUsercheck': ''
         }
 
-        res = self.session.post(self.HOST + self.RESTART_URI, data = data)
+        res = self.session.post(self.endpoint('reboot'), data = data)
         return res.ok
 
     def wifi_pass(self):
-        url = self.HOST + self.WIFI_PASS_URI
-        response = self.session.get(url)
+        response = self.session.get(self.endpoint('wifi_settings'))
         soup = BeautifulSoup(response.content, 'html.parser')
         return soup.find('input', {'id':'wl5g_wpa_psk_key'}).get('value')
 

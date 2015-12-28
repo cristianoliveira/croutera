@@ -12,12 +12,15 @@ class DLinkDir610(Router):
     """ Implementation for D-link DR610
     see: http://www.dlink.com.br/produto/dir-610-a1
     """
-    HOST = 'http://192.168.100.1'
 
-    # URIs
-    LOGIN_URI = '/login.cgi'
-    REBOOT_URI = '/form2Reboot.cgi'
-    WIFI_PASS_URI = '/wlan_basic.htm'
+    config = {
+        'ip': '192.168.100.1',
+        'uris': {
+            'login': 'login.cgi',
+            'reboot': 'form2Reboot.cgi',
+            'wifi_settings': 'wlan_basic.htm'
+        }
+    }
 
     def login(self, username, password):
         data = {
@@ -26,10 +29,8 @@ class DLinkDir610(Router):
             'submit.htm%3Flogin.htm': 'Send'
         }
 
-        url = self.HOST + self.LOGIN_URI
-
         self.session = requests.Session()
-        response = self.session.post(url, data = data)
+        response = self.session.post(self.endpoint('login'), data = data)
 
         return response.ok
 
@@ -39,14 +40,11 @@ class DLinkDir610(Router):
             'submit.htm%3Freboot.htm': 'Send'
         }
 
-        url = self.HOST + self.REBOOT_URI
-        response = self.session.post(url, data = data)
-
+        response = self.session.post(self.endpoint('reboot'), data = data)
         return response.ok
 
     def wifi_pass(self):
-        url = self.HOST + self.WIFI_PASS_URI
-        response = self.session.get(url)
+        response = self.session.get(self.endpoint('wifi_settings'))
         soup = BeautifulSoup(response.content, 'html.parser')
 
         return soup.find('input', {'name': 'pskValue'}).get('value')

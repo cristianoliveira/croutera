@@ -13,6 +13,5 @@ class TplinkWR720N(TplinkTLWRBased):
     """
 
     def __init__(self):
-        super(TplinkTLWRBased, self).__init__()
         self.config['ip'] = '192.168.0.1'
 
