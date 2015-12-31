@@ -34,7 +34,7 @@ class TplinkTLWRBased(Router):
         return response.ok
 
     def restart(self):
-        response = self.session.get(self.endpoint('restart'),
+        response = self.session.get(self.endpoint('reboot'),
                                     auth = (self.username, self.password))
 
         return response.ok
