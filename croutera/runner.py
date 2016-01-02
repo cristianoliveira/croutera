@@ -12,13 +12,17 @@ def run():
     args = ArgsParserBuilder.build(sys.argv[1:])
     cmd = Cli.command(args)
 
-    if cmd and cmd.valid():
-        cmd.execute()
-    else:
+    if not cmd:
         print('--------HELP-------')
         ArgsParserBuilder.build_help()
+        return False
 
-    return True
+    if cmd.valid() and cmd.execute():
+        print('Command executed.')
+        return True
+    else:
+        print('Command was not executed.')
+        return False
 
 
 if __name__ == '__main__':
