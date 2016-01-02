@@ -22,9 +22,6 @@ class Cli(object):
     def command(args):
         """ Retrive command by args """
 
-        if not Cli.validate(args):
-            raise InvalidCommandArgs()
-
         if args.version:
             return VersionCommand()
 

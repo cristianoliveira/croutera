@@ -6,6 +6,7 @@
 """
 
 import unittest
+import sys
 
 from mock import Mock, patch
 from croutera import runner
@@ -13,19 +14,32 @@ from croutera import runner
 
 class RunnerTest(unittest.TestCase):
 
-    @patch('croutera.runner.ArgsParserBuilder')
-    def test_it_runs_with_no_argument(self, ArgsParserBuilder):
-        args = Mock()
-        args.model.return_value = 'man-model'
-        ArgsParserBuilder.build.return_value = args
-
-        self.assertTrue(runner.run())
-
-    @patch('croutera.runner.Cli')
-    @patch('croutera.runner.ArgsParserBuilder')
-    def test_it_shows_help_when_doesnt_found_command(self, ArgsParserBuilder, Cli):
-        Cli.command.return_value = None
+    @patch('croutera.runner.show_help')
+    def test_it_runs_with_no_argument(self, show_help):
+        sys.args = []
 
         runner.run()
 
-        ArgsParserBuilder.build_help.assert_called_with()
+        show_help.assert_called_with()
+
+    @patch('croutera.runner.Cli')
+    @patch('croutera.runner.ArgsParserBuilder')
+    def test_it_does_not_execute_invalid_commands(self, ArgsParserBuilder, Cli):
+        command = Mock()
+        command.valid.return_value = False
+        Cli.command.return_value = command
+
+        runner.run()
+
+        assert not command.execute.called
+
+    @patch('croutera.runner.Cli')
+    @patch('croutera.runner.ArgsParserBuilder')
+    def test_it_does_execute_valid_commands(self, ArgsParserBuilder, Cli):
+        command = Mock()
+        command.valid.return_value = True
+        Cli.command.return_value = command
+
+        runner.run()
+
+        assert command.execute.called
