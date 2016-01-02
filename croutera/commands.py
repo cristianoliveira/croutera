@@ -3,14 +3,17 @@
 
 from croutera.version import version
 from croutera.models import Routers
+from abc import ABCMeta, abstractmethod
 
 
 class Command(object):
+    __metaclass__ = ABCMeta
 
     def valid(self):
         """ Implement logic for command validation """
         return True
 
+    @abstractmethod
     def execute(self):
         """ Command process """
         raise NotImplementedError('Command not implemented')
