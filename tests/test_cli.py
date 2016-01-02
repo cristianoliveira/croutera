@@ -11,7 +11,7 @@ import argparse
 from unittest import TestCase
 from croutera.cli import Cli, ArgsParserBuilder
 from croutera.commands import *
-from croutera.exceptions import InvalidCommandArgs
+from croutera.exceptions import ModelNotFoundError
 
 
 class CliTest(TestCase):
@@ -59,24 +59,6 @@ class CliTest(TestCase):
 
         command = Cli.command(args)
         self.assertIsInstance(command.commands[1], ShowWifiPassCommand)
-
-    def test_it_raises_invalid_argument_when_model_has_wrong_format(self):
-        self.assertRaises(
-            InvalidCommandArgs,
-            Cli.command, ArgsParserBuilder.build(self.cmd('-wifi-pass ciscomodel1'))
-        )
-
-
-    def test_it_raises_invalid_argument_error_without_model(self):
-        self.assertRaises(InvalidCommandArgs,
-                          Cli.command,
-                          ArgsParserBuilder.build(self.cmd('-')))
-        self.assertRaises(InvalidCommandArgs,
-                          Cli.command,
-                          ArgsParserBuilder.build(self.cmd('-restart')))
-        self.assertRaises(InvalidCommandArgs,
-                          Cli.command,
-                          ArgsParserBuilder.build(self.cmd('-wifi-pass')))
 
     def cmd(self, terminal_args):
         return terminal_args.split()
