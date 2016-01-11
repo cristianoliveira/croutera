@@ -32,6 +32,7 @@ class ModelListCommand(Command):
 
         return True
 
+
 class VersionCommand(Command):
     """ Show current version installed """
 
@@ -49,7 +50,11 @@ class AuthorizeCommand(Command):
 
     def execute(self):
         print('Authorizing...')
-        return self.router.login(self.user, self.password)
+        try:
+            return self.router.login(self.user, self.password)
+        except:
+            return False
+
 
 class RestartCommand(Command):
 
@@ -58,7 +63,10 @@ class RestartCommand(Command):
 
     def execute(self):
         print('Router restarting...')
-        return self.router.restart()
+        try:
+            return self.router.restart()
+        except:
+            return False
 
 
 class ShowWifiPassCommand(Command):
@@ -69,6 +77,7 @@ class ShowWifiPassCommand(Command):
     def execute(self):
         print("Current Wifi Pass: " + self.router.wifi_pass())
         return True
+
 
 class ChainCommand(Command):
     """ Compose a chain of commands
