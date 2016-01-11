@@ -53,6 +53,7 @@ class AuthorizeCommand(Command):
         try:
             return self.router.login(self.user, self.password)
         except:
+            print("Error while authorizing.")
             return False
 
 
@@ -66,6 +67,7 @@ class RestartCommand(Command):
         try:
             return self.router.restart()
         except:
+            print("Error while restarting.")
             return False
 
 
