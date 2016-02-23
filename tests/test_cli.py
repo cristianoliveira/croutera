@@ -48,13 +48,19 @@ class CliTest(TestCase):
         command = Cli.command(args)
         self.assertIsInstance(command, ChainCommand)
 
-    def test_it_returns_restart_command(self):
+    def test_it_returns_at_first_authorize_command(self):
+        args = ArgsParserBuilder.build(self.cmd('-restart manufacturer-model1 usr pas'))
+
+        command = Cli.command(args)
+        self.assertTrue(command.commands[0], AuthorizeCommand)
+
+    def test_it_returns_at_end_restart_command(self):
         args = ArgsParserBuilder.build(self.cmd('-restart manufacturer-model1 usr pas'))
 
         command = Cli.command(args)
         self.assertTrue(command.commands[1], RestartCommand)
 
-    def test_it_returns_show_wifi_command(self):
+    def test_it_returns_at_end_show_wifi_command(self):
         args = ArgsParserBuilder.build(self.cmd('-wifi-pass manufacturer-model1 usr pas'))
 
         command = Cli.command(args)
