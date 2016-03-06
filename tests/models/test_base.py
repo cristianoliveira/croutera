@@ -19,5 +19,8 @@ class TestBase(unittest.TestCase):
 
 class StubRouter(Router):
 
+    manufacturer = 'stub'
+    model = 'stub'
+
     def login(self, user, password):
         return True

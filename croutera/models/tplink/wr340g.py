@@ -14,5 +14,7 @@ class TplinkWR340(TplinkTLWRBased):
     see: http://www.tp-link.com.br/products/details/?model=TL-WR340G
     """
 
+    model = "wr340"
+
     def __init__(self):
         self.config['ip'] = '192.168.1.1'

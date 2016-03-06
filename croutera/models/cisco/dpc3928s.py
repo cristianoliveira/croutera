@@ -8,6 +8,9 @@ from bs4 import BeautifulSoup
 
 class CiscoDPC3928S(Router):
 
+    manufacturer = 'cisco'
+    model = 'dpc3928s'
+
     config = {
         'ip': '192.168.0.1',
         'uris': {

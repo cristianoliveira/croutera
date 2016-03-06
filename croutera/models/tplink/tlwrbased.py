@@ -14,6 +14,10 @@ class TplinkTLWRBased(Router):
 
     For more details see all them:
     http://www.tp-link.com.br/search/?q=wr    """
+
+    manufacturer = "tplink"
+    model = "wrbased"
+
     config = {
         'ip': '192.168.1.1',
         'uris': {

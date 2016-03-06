@@ -4,6 +4,9 @@ from abc import ABCMeta, abstractmethod
 class Router(object):
     __metaclass__ = ABCMeta
 
+    manufacturer = "None"
+    model = "None"
+
     config = {
         'ip': '192.168.0.1',
         'uris': {
@@ -34,3 +37,7 @@ class Router(object):
     def endpoint(self, uri):
         ' provide a url to reach a given endpoint '
         return "http://%s/%s" % (self.config['ip'], self.config['uris'][uri])
+
+    @classmethod
+    def as_str(cls):
+        return "%s-%s" % (cls.manufacturer, cls.model)

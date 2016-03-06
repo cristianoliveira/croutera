@@ -12,6 +12,8 @@ class TplinkWR720N(TplinkTLWRBased):
     see: http://www.tp-link.com.br/products/details/?model=TL-WR720N
     """
 
+    model = 'wr720n'
+
     def __init__(self):
         self.config['ip'] = '192.168.0.1'
 

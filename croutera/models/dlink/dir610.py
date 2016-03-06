@@ -13,6 +13,9 @@ class DLinkDir610(Router):
     see: http://www.dlink.com.br/produto/dir-610-a1
     """
 
+    manufacturer = 'dlink'
+    model = 'dir610'
+
     config = {
         'ip': '192.168.100.1',
         'uris': {
